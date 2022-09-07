@@ -1,0 +1,17 @@
+{
+    "chain_name": "Hypersign-Devnet",
+    "coingecko": "hypersign-identity-token",
+    "api": ["https://jagrat.hypersign.id/node1/rest"],
+    "rpc": ["https://jagrat.hypersign.id/node1/rpc"],
+    "snapshot_provider": "",
+    "sdk_version": "0.45.7",
+    "coin_type": "118",
+    "min_tx_fee": "4000",
+    "addr_prefix": "hid",
+    "assets": [{
+        "base": "uhid",
+        "symbol": "HID",
+        "exponent": "6",
+        "coingecko_id": "hypersign-identity-token"
+    }]
+}
