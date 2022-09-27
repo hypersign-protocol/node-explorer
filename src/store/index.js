@@ -5,7 +5,7 @@ import Vuex from 'vuex'
 import app from './app'
 import appConfig from './app-config'
 import verticalMenu from './vertical-menu'
-
+import identityData from './Identity-data'
 import chains from './chains'
 
 Vue.use(Vuex)
@@ -16,6 +16,7 @@ export default new Vuex.Store({
     appConfig,
     verticalMenu,
     chains,
+    identityData,
   },
   mutations: chains.mutations,
   strict: process.env.DEV,

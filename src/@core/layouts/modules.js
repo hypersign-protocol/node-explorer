@@ -41,6 +41,11 @@ export default () => ([
     route: 'consensus',
   },
   {
+    scope: 'normal',
+    title: 'identity',
+    route: 'identity',
+  },
+  {
     scope: 'cos-mos',
     title: 'gravity',
     route: 'gravity',
