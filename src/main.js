@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import { ObserveVisibility } from 'vue-observe-visibility'
-import { ToastPlugin, ModalPlugin } from 'bootstrap-vue'
+import { ToastPlugin, ModalPlugin, BootstrapVue } from 'bootstrap-vue'
 import VueCompositionAPI from '@vue/composition-api'
 import messages from '@/lang'
-
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueI18n from 'vue-i18n'
 
 import ChainAPI from '@/libs/fetch'
@@ -40,6 +41,9 @@ Vue.use(VueCompositionAPI)
 
 // import core styles
 require('@core/scss/core.scss')
+
+// Bootstratp vue
+Vue.use(BootstrapVue)
 
 // import assets styles
 require('@/assets/scss/style.scss')

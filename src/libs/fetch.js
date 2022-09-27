@@ -8,6 +8,7 @@ import {
   Proposal, ProposalTally, Proposer, StakingPool, Votes, Deposit,
   Validator, StakingParameters, Block, ValidatorDistribution, StakingDelegation, WrapStdTx, getUserCurrency,
 } from './utils'
+import Identity from './data/identity'
 import OsmosAPI from './osmos'
 
 function commonProcess(res) {
@@ -65,6 +66,16 @@ export default class ChainFetch {
     //   return ChainFetch.fetch('https://tm.injective.network', '/cosmos/base/tendermint/v1beta1/block').then(data => Block.create(commonProcess(data)))
     // }
     return this.get('/cosmos/base/tendermint/v1beta1/blocks/latest', config).then(data => Block.create(data))
+  }
+
+  async getLatestId(config = null) {
+    return this.get('/hypersign-protocol/hidnode/ssi/did?count=false&pagination.limit=100&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
+      // eslint-disable-next-line
+     const createdData = data.didDocList.map(x => {
+        return Identity.create(x)
+      })
+      return createdData
+    })
   }
 
   async getBlockByHeight(height, config = null) {

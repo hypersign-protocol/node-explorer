@@ -294,6 +294,38 @@ const router = new VueRouter({
       },
     },
     {
+      path: '/:chain/identity',
+      name: 'identity',
+      component: () => import('@/views/Identity.vue'),
+      meta: {
+        pageTitle: 'Identity',
+        breadcrumb: [
+          {
+            text: 'Identity',
+            active: true,
+          },
+        ],
+      },
+    },
+    {
+      path: '/:chain/identity/:DiD',
+      name: 'DiD',
+      component: () => import('@/views/DiD.vue'),
+      meta: {
+        pageTitle: 'DiD',
+        breadcrumb: [
+          {
+            text: 'Identity',
+            active: true,
+          },
+          {
+            text: 'Identity',
+            active: true,
+          },
+        ],
+      },
+    },
+    {
       path: '/:chain/blocks/:height',
       name: 'block',
       component: () => import('@/views/Block.vue'),
