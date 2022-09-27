@@ -31,18 +31,6 @@ export default {
       return truncated
     },
   },
-  copyHere(textToCopy, contentType) {
-    if (textToCopy) {
-      navigator.clipboard
-        .writeText(textToCopy)
-        .then(() => {
-          console.log(contentType)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-  },
 }
 </script>
 
