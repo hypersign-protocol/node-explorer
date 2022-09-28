@@ -21,14 +21,20 @@
       :fields="fields"
       ></hid-table>
         </b-tab>
-      <b-tab title="Schemas">
+      <b-tab
+      title="Schemas"
+      disabled
+      >
         <hid-table
         :fields="txFields"
         >
         </hid-table>
       </b-tab>
 
-      <b-tab title="Revocation Registry">
+      <b-tab
+      title="Revocation Registry"
+      disabled
+      >
         <hid-table
         :fields="txFields"
         >
@@ -73,33 +79,33 @@ export default {
       fields: [
         {
           key: 'did_id',
-          sortable: true,
-          lable: 'DID ID',
+          label: 'DID ID',
           type: 'text',
           isCopy: true,
           isClickable: true,
         },
         {
           key: 'versionId',
-          lable: 'Version Id',
+          label: 'Transaction Id',
           type: 'text',
           isCopy: true,
+          isClickable: true,
         },
         {
           key: 'createdAt',
-          lable: 'Created At',
+          label: 'Created At',
           formatter: v => toDay(v, 'from'),
           type: 'date',
         },
         {
           key: 'updatedAt',
-          lable: 'Updated At',
+          label: 'Updated At',
           formatter: v => toDay(v, 'from'),
           type: 'date',
         },
         {
           key: 'deactivated',
-          lable: 'Deactivated',
+          label: 'Deactivated',
           type: 'boolean',
         },
       ],

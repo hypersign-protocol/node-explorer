@@ -78,6 +78,10 @@ export default class ChainFetch {
     })
   }
 
+  async fetchOneDid(DiD, config = null) {
+    return this.get(`/hypersign-protocol/hidnode/ssi/did/${DiD}:`, config).then(data => Identity.create(data))
+  }
+
   async getBlockByHeight(height, config = null) {
     // const conf = config || this.getSelectedConfig()
     // if (conf.chain_name === 'injective') {

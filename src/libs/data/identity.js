@@ -1,5 +1,3 @@
-import IdentityInner from './identity-inner'
-
 export default class Identity {
   constructor() {
     this.did_id = ''
@@ -7,7 +5,8 @@ export default class Identity {
     this.createdAt = ''
     this.updatedAt = ''
     this.deactivated = false
-    this.identity_inner = new IdentityInner()
+    this.didDocument = null
+    this.didDocumentMetadata = null
   }
 
   static create(element) {
@@ -17,7 +16,8 @@ export default class Identity {
     self.createdAt = element.didDocumentMetadata.created
     self.updatedAt = element.didDocumentMetadata.updated
     self.deactivated = element.didDocumentMetadata.deactivated
-    self.identity_inner = IdentityInner.create(element.didDocument)
+    self.didDocument = element.didDocument
+    self.didDocumentMetadata = element.didDocumentMetadata
     return self
   }
 }

@@ -1,49 +1,48 @@
 <template>
   <div>
-    <b-card title="DiD Document">
-      {{ (identity.identity_inner) }}
-    </b-card>
+    <p>DID Document ({{singleDid.didDocument.id}})</p>
+    <json-viewer :value="singleDid.didDocument" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+    <p>DID Document MetaData </p>
+    <json-viewer :value="singleDid.didDocumentMetadata" :expanded="true" :depth="10" :copyable="true"></json-viewer>
   </div>
 </template>
 
 <script>
-import { BCard } from 'bootstrap-vue'
 
 export default {
-  components: {
-    BCard,
-  },
-  // beforeRouteUpdate(to, from, next) {
-  //   const { height } = to.params
-  //   if (height > 0 && height !== from.params.height) {
-  //     this.initData(height)
-  //     next()
-  //   }
-  // },
+  components: {},
   computed: {
-    identity() {
-      if (!localStorage.getItem('identity')) {
-        localStorage.setItem('identity', JSON.stringify(this.$store.getters.getOneDid))
-        return this.$store.getters.getOneDid
-      }
-      return JSON.parse(localStorage.getItem('identity'))
+    getAllDid() {
+      return this.$store.getters.getAllDid
     },
   },
   data() {
     return {
-      txs: null,
+      showModal: true,
+      singleDid: {},
     }
   },
   created() {
     const { DiD } = this.$route.params
-    if (!localStorage.getItem('identity')) {
-      this.$store.commit('getOneDid', DiD)
+    // eslint-disable-next-line
+      const a = this.getAllDid.find(x => {
+      if (x.did_id === DiD) {
+        this.singleDid = { ...x }
+        this.showModal = true
+        return x
+      }
+    })
+    if (a === undefined) {
+      this.initData(DiD)
     }
   },
   methods: {
-    // initData(Did) {
-    //   this.$store.commit('getOneDid', Did)
-    // },
+    initData(DiD) {
+      this.$http.fetchOneDid(DiD).then(res => {
+        this.singleDid = { ...res }
+        this.showModal = true
+      })
+    },
   },
 }
 </script>
