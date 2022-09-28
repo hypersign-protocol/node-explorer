@@ -83,6 +83,7 @@ export default {
           type: 'text',
           isCopy: true,
           isClickable: true,
+          to: './identity/',
         },
         {
           key: 'versionId',
@@ -90,6 +91,7 @@ export default {
           type: 'text',
           isCopy: true,
           isClickable: true,
+          to: './tx/',
         },
         {
           key: 'createdAt',

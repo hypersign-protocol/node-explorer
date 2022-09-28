@@ -1,13 +1,24 @@
 <template>
   <div>
-    <p>DID Document ({{singleDid.didDocument.id}})</p>
-    <json-viewer :value="singleDid.didDocument" :expanded="true" :depth="10" :copyable="true"></json-viewer>
-    <p>DID Document MetaData </p>
-    <json-viewer :value="singleDid.didDocumentMetadata" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+    <b-card>
+      <b-card-title>
+        DID Document ({{singleDid.didDocument.id}})
+      </b-card-title>
+      <json-viewer v-if="skin !== 'dark'" :value="singleDid.didDocument" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+      <json-viewer v-else :theme ="theme" :value="singleDid.didDocument" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+    </b-card>
+    <b-card>
+      <b-card-title>
+        DID Document MetaData
+      </b-card-title>
+      <json-viewer v-if="skin !=='dark'" :value="singleDid.didDocumentMetadata" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+      <json-viewer v-else :theme ="theme" :value="singleDid.didDocumentMetadata" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+    </b-card>
   </div>
 </template>
 
 <script>
+import useAppConfig from '@core/app-config/useAppConfig'
 
 export default {
   components: {},
@@ -16,8 +27,16 @@ export default {
       return this.$store.getters.getAllDid
     },
   },
+  setup() {
+    const { skin } = useAppConfig()
+
+    return {
+      skin,
+    }
+  },
   data() {
     return {
+      theme: 'my-awesome-json-theme',
       singleDid: {},
     }
   },
@@ -38,3 +57,12 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.my-awesome-json-theme {
+  background: #3b4252;
+  white-space: nowrap;
+  color: white;
+  font-size: 16px;
+  font-family: Consolas, Menlo, Courier, monospace;
+}
+</style>
