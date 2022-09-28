@@ -1,8 +1,8 @@
 {
     "chain_name": "Hypersign-TestNet",
     "coingecko": "hypersign-identity-token",
-    "api": ["https://jagrat.hypersign.id/node1/rest"],
-    "rpc": ["https://jagrat.hypersign.id/node1/rpc"],
+    "api": ["https://jagrat.hypersign.id/rest"],
+    "rpc": ["https://jagrat.hypersign.id/rpc"],
     "snapshot_provider": "",
     "sdk_version": "0.45.7",
     "coin_type": "118",
