@@ -18,29 +18,21 @@ export default {
   },
   data() {
     return {
-      showModal: true,
       singleDid: {},
     }
   },
   created() {
     const { DiD } = this.$route.params
-    // eslint-disable-next-line
-      const a = this.getAllDid.find(x => {
-      if (x.did_id === DiD) {
-        this.singleDid = { ...x }
-        this.showModal = true
-        return x
-      }
-    })
-    if (a === undefined) {
+    this.singleDid = this.$store.getters.getDiDDataByDiD(DiD)
+    if (!this.singleDid || !this.singleDid.did_id) {
       this.initData(DiD)
     }
   },
   methods: {
     initData(DiD) {
       this.$http.fetchOneDid(DiD).then(res => {
+        this.$store.commit('addDidToStore', res)
         this.singleDid = { ...res }
-        this.showModal = true
       })
     },
   },

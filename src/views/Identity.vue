@@ -123,13 +123,8 @@ export default {
       localStorage.removeItem('identity')
     }
     this.$store.commit('resetAllIdentities')
-    this.$http.getLatestId().then(res => {
-      // eslint-disable-next-line
-      res.map(x =>{
-        this.$store.commit('addDidToStore', x)
-      })
-      this.timer = setInterval(6000)
-    })
+    this.$http.getLatestId()
+    this.timer = setInterval(6000)
   },
   beforeDestroy() {
     this.islive = false
