@@ -72,10 +72,15 @@ export default class ChainFetch {
     return this.get('/hypersign-protocol/hidnode/ssi/did?count=false&pagination.limit=100&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
       // eslint-disable-next-line
      const createdData = data.didDocList.map(x => {
-        return Identity.create(x)
+        const id = Identity.create(x)
+        store.commit('addDidToStore', id)
       })
       return createdData
     })
+  }
+
+  async fetchOneDid(DiD, config = null) {
+    return this.get(`/hypersign-protocol/hidnode/ssi/did/${DiD}:`, config).then(data => Identity.create(data))
   }
 
   async getBlockByHeight(height, config = null) {

@@ -1,49 +1,68 @@
 <template>
   <div>
-    <b-card title="DiD Document">
-      {{ (identity.identity_inner) }}
+    <b-card>
+      <b-card-title>
+        DID Document ({{singleDid.didDocument.id}})
+      </b-card-title>
+      <json-viewer v-if="skin !== 'dark'" :value="singleDid.didDocument" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+      <json-viewer v-else :theme ="theme" :value="singleDid.didDocument" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+    </b-card>
+    <b-card>
+      <b-card-title>
+        DID Document MetaData
+      </b-card-title>
+      <json-viewer v-if="skin !=='dark'" :value="singleDid.didDocumentMetadata" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+      <json-viewer v-else :theme ="theme" :value="singleDid.didDocumentMetadata" :expanded="true" :depth="10" :copyable="true"></json-viewer>
     </b-card>
   </div>
 </template>
 
 <script>
-import { BCard } from 'bootstrap-vue'
+import useAppConfig from '@core/app-config/useAppConfig'
 
 export default {
-  components: {
-    BCard,
-  },
-  // beforeRouteUpdate(to, from, next) {
-  //   const { height } = to.params
-  //   if (height > 0 && height !== from.params.height) {
-  //     this.initData(height)
-  //     next()
-  //   }
-  // },
+  components: {},
   computed: {
-    identity() {
-      if (!localStorage.getItem('identity')) {
-        localStorage.setItem('identity', JSON.stringify(this.$store.getters.getOneDid))
-        return this.$store.getters.getOneDid
-      }
-      return JSON.parse(localStorage.getItem('identity'))
+    getAllDid() {
+      return this.$store.getters.getAllDid
     },
+  },
+  setup() {
+    const { skin } = useAppConfig()
+
+    return {
+      skin,
+    }
   },
   data() {
     return {
-      txs: null,
+      theme: 'my-awesome-json-theme',
+      singleDid: {},
     }
   },
   created() {
     const { DiD } = this.$route.params
-    if (!localStorage.getItem('identity')) {
-      this.$store.commit('getOneDid', DiD)
+    this.singleDid = this.$store.getters.getDiDDataByDiD(DiD)
+    if (!this.singleDid || !this.singleDid.did_id) {
+      this.initData(DiD)
     }
   },
   methods: {
-    // initData(Did) {
-    //   this.$store.commit('getOneDid', Did)
-    // },
+    initData(DiD) {
+      this.$http.fetchOneDid(DiD).then(res => {
+        this.$store.commit('addDidToStore', res)
+        this.singleDid = { ...res }
+      })
+    },
   },
 }
 </script>
+<style lang="scss" scoped>
+.my-awesome-json-theme {
+  background: #3b4252;
+  white-space: nowrap;
+  color: white;
+  font-size: 16px;
+  font-family: Consolas, Menlo, Courier, monospace;
+}
+</style>

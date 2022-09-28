@@ -6,7 +6,7 @@ import messages from '@/lang'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueI18n from 'vue-i18n'
-
+import JsonViewer from 'vue-json-viewer'
 import ChainAPI from '@/libs/fetch'
 
 import router from './router'
@@ -44,6 +44,9 @@ require('@core/scss/core.scss')
 
 // Bootstratp vue
 Vue.use(BootstrapVue)
+
+// json formator
+Vue.use(JsonViewer)
 
 // import assets styles
 require('@/assets/scss/style.scss')

@@ -2,10 +2,9 @@
   <b-table thead-class="thead-light tableCard" :items="items" :fields="fields" responsive>
     <template v-for="(field, index) in fields" #[`cell(${field.key})`]="data">
       <span :key="index" v-if="field.isCopy!=true">{{ data.value }}</span>
-      <router-link v-else-if="field.isClickable ==true" :key="index"  :to="`./identity/${data.value}`">
+      <router-link v-if="field.isClickable == true" :key="index"  :to="`${field.to}`+`${data.value}`">
                 {{ truncate1(data.value,44) }}
               </router-link>
-      <span :key="index" v-else >{{ truncate1(data.value,44) }} </span>
     </template>
   </b-table>
 </template>
