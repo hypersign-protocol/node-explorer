@@ -11,7 +11,7 @@ export const $themeConfig = {
   app: {
     appName: 'Hypersign.id', // Will update name in navigation menu (Branding)
     // eslint-disable-next-line global-require
-    appLogoImage: '/ONLYLOGO.png', // Will update logo in navigation menu (Branding)
+    appLogoImage: '/logos/HS_Yellow.png', // Will update logo in navigation menu (Branding)
   },
   layout: {
     isRTL: false,

@@ -1,5 +1,5 @@
 {
-    "chain_name": "Hypersign-Devnet",
+    "chain_name": "Hypersign-TestNet",
     "coingecko": "hypersign-identity-token",
     "api": ["https://jagrat.hypersign.id/node1/rest"],
     "rpc": ["https://jagrat.hypersign.id/node1/rpc"],
@@ -8,12 +8,12 @@
     "coin_type": "118",
     "min_tx_fee": "4000",
     "addr_prefix": "hid",
-    "logo": "https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F3632023506-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252F-MOLDOibYYcG4PCSEDDL%252Ficon%252Fmss4LQOwo24WJbSFHkk8%252FONLY%2520LOGO.png%3Falt%3Dmedia%26token%3Dbdad5ea9-1282-4144-96b6-a54ebddb7a46",
+    "logo": "/logos/HS_Yellow.png",
     "assets": [{
         "base": "uhid",
         "symbol": "HID",
         "exponent": "6",
         "coingecko_id": "hypersign-identity-token",
-        "logo": "https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F3632023506-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252F-MOLDOibYYcG4PCSEDDL%252Ficon%252Fmss4LQOwo24WJbSFHkk8%252FONLY%2520LOGO.png%3Falt%3Dmedia%26token%3Dbdad5ea9-1282-4144-96b6-a54ebddb7a46"
+        "logo": "/logos/HS_Yellow.png"
     }]
 }
