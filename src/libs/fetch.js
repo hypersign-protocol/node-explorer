@@ -9,6 +9,7 @@ import {
   Validator, StakingParameters, Block, ValidatorDistribution, StakingDelegation, WrapStdTx, getUserCurrency,
 } from './utils'
 import Identity from './data/identity'
+import Schema from './data/schema'
 import OsmosAPI from './osmos'
 
 function commonProcess(res) {
@@ -66,6 +67,21 @@ export default class ChainFetch {
     //   return ChainFetch.fetch('https://tm.injective.network', '/cosmos/base/tendermint/v1beta1/block').then(data => Block.create(commonProcess(data)))
     // }
     return this.get('/cosmos/base/tendermint/v1beta1/blocks/latest', config).then(data => Block.create(data))
+  }
+
+  async getLatestSchema(config = null) {
+    return this.get('/hypersign-protocol/hidnode/ssi/schema?count=false&pagination.limit=100&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
+      // eslint-disable-next-line
+     const fetchedSchemas = data.schemaList.map(x => {
+        const schemaData = Schema.create(x)
+        store.commit('addSchemaToStore', schemaData)
+      })
+      return fetchedSchemas
+    })
+  }
+
+  async fetchOneSchema(ScH, config = null) {
+    return this.get(`/hypersign-protocol/hidnode/ssi/schema/${ScH}:`, config).then(data => Schema.create(data.schema[0]))
   }
 
   async getLatestId(config = null) {

@@ -326,6 +326,38 @@ const router = new VueRouter({
       },
     },
     {
+      path: '/:chain/schemas',
+      name: 'schemas',
+      component: () => import('@/views/Schemas.vue'),
+      meta: {
+        pageTitle: 'Sachemas',
+        breadcrumb: [
+          {
+            text: 'Schemas',
+            active: true,
+          },
+        ],
+      },
+    },
+    {
+      path: '/:chain/schemas/:ScH',
+      name: 'schema',
+      component: () => import('@/views/Schema.vue'),
+      meta: {
+        pageTitle: 'Schema',
+        breadcrumb: [
+          {
+            text: 'Schemas',
+            active: true,
+          },
+          {
+            text: 'Schema',
+            active: true,
+          },
+        ],
+      },
+    },
+    {
       path: '/:chain/blocks/:height',
       name: 'block',
       component: () => import('@/views/Block.vue'),

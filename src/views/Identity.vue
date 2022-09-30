@@ -15,6 +15,7 @@
         <b-tab
           title="DID's"
           active
+          @click="hideSchemas()"
         >
       <hid-table
       :items="identities"
@@ -23,24 +24,16 @@
         </b-tab>
       <b-tab
       title="Schemas"
-      disabled
+      @click="showSchemas()"
       >
-        <hid-table
-        :fields="txFields"
-        >
-        </hid-table>
+     <schemas v-if="toSchemas">
+     </schemas>
       </b-tab>
-
       <b-tab
       title="Revocation Registry"
       disabled
       >
-        <hid-table
-        :fields="txFields"
-        >
-        </hid-table>
       </b-tab>
-
       </b-tabs>
     </b-card>
   </div>
@@ -51,9 +44,10 @@ import {
   BCard, BCardHeader, BCardTitle, VBTooltip, BTab, BTabs,
 } from 'bootstrap-vue'
 import {
-  toDay, abbr,
+  toDay,
 } from '@/libs/utils'
 import HidTable from './components/HidComponents/HidTable.vue'
+import Schemas from './Schemas.vue'
 
 export default {
   components: {
@@ -63,6 +57,7 @@ export default {
     BCardHeader,
     BCardTitle,
     HidTable,
+    Schemas,
   },
   directives: {
     'b-tooltip': VBTooltip,
@@ -74,6 +69,7 @@ export default {
   },
   data() {
     return {
+      toSchemas: false,
       islive: true,
       txs: [],
       fields: [
@@ -111,62 +107,26 @@ export default {
           type: 'boolean',
         },
       ],
-      txFields: [
-        { key: 'did_id' },
-        { key: 'versionId' },
-        { key: 'createdAt', formatter: v => toDay(v, 'from') },
-        { key: 'updatedAt', formatter: v => toDay(v, 'from') },
-        { key: 'deactivated' },
-      ],
     }
   },
   created() {
-    if (localStorage.getItem('identity')) {
-      localStorage.removeItem('identity')
-    }
-    this.$store.commit('resetAllIdentities')
-    this.$http.getLatestId()
-    this.timer = setInterval(6000)
-  },
-  beforeDestroy() {
-    this.islive = false
-    clearInterval(this.timer)
+    this.$store.commit('resetAllSchemas')
+    this.fetchDIDs()
   },
   methods: {
+    showSchemas() {
+      this.toSchemas = true
+    },
+    hideSchemas() {
+      this.toSchemas = false
+      this.$store.commit('resetAllSchemas')
+      this.fetchDIDs()
+    },
+    fetchDIDs() {
+      this.$store.commit('resetAllIdentities')
+      this.$http.getLatestId()
+    },
     formatTime: v => toDay(v, 'from'),
-    // fetch() {
-    //   this.$http.getLatestId().then(b => {
-    //     const has = this.identity.findIndex(x => x.identity.did_id === b.identity.did_id)
-    //     if (has < 0) {
-    //       this.identity.unshift(b)
-    //       this.extractTx(b)
-    //     }
-    //     if (this.identity.length > 200) this.identity.pop()
-    //   })
-    // },
-    // extractTx(block, direction = 'head') {
-    //   const { txs } = block.block.data
-    //   if (txs === null) return
-    //   for (let i = 0; i < txs.length; i += 1) {
-    //     let tx = new Tx()
-    //     try {
-    //       const origin = decodeTxRaw(fromBase64(txs[i]))
-    //       tx = Tx.create(origin)
-    //       tx.time = block.block.header.time
-    //     } catch (e) {
-    //       // catch errors
-    //     }
-    //     tx.setHash(txs[i])
-    //     if (direction === 'head') {
-    //       this.txs.unshift(tx)
-    //       if (this.txs.length > 200) {
-    //         this.txs.pop()
-    //       }
-    //     } else if (this.txs.length < 100) {
-    //       this.txs.push(tx)
-    //     }
-    //   }
-    // },
   },
 }
 </script>
