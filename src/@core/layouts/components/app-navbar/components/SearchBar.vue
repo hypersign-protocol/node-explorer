@@ -27,7 +27,7 @@
       <b-form-input
         v-if="showSearchBar"
         v-model="searchQuery"
-        placeholder="Search Height/Transaction/Account Address/DID"
+        placeholder="Search Height / Transaction / Account Address / DID / Schema"
         :state="false"
         autocomplete="off"
         @keyup.enter="doQuery"
@@ -85,7 +85,8 @@ export default {
       const height = /^\d+$/
       const txhash = /^[A-Z\d]{64}$/
       const addr = /^[a-z]+1[a-z\d]{38}$/
-      const did = /did:hid:devnet:/
+      const did = /did:hid:testnet:/
+      const sch = /sch:hid:testnet:/
       const key = this.searchQuery
 
       const c = store.state.chains.selected
@@ -98,6 +99,8 @@ export default {
           this.$router.push({ name: 'chain-account', params: { chain: c.chain_name, address: key } })
         } else if (did.test(key)) {
           this.$router.push({ name: 'DiD', params: { chain: c.chain_name, DiD: key } })
+        } else if (sch.test(key)) {
+          this.$router.push({ name: 'schema', params: { chain: c.chain_name, ScH: key } })
         } else {
           this.error = 'The input not recognized'
         }
