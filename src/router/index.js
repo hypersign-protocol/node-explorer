@@ -312,14 +312,14 @@ const router = new VueRouter({
       name: 'DiD',
       component: () => import('@/views/DiD.vue'),
       meta: {
-        pageTitle: 'DiD',
+        pageTitle: 'DID',
         breadcrumb: [
           {
             text: 'Identity',
             active: true,
           },
           {
-            text: 'Identity',
+            text: 'DID',
             active: true,
           },
         ],
@@ -352,6 +352,38 @@ const router = new VueRouter({
           },
           {
             text: 'Schema',
+            active: true,
+          },
+        ],
+      },
+    },
+    {
+      path: '/:chain/revocationRegistry',
+      name: 'revocationRegistry',
+      component: () => import('@/views/RevocationRegistry.vue'),
+      meta: {
+        pageTitle: 'Revocation Registry',
+        breadcrumb: [
+          {
+            text: 'Revocation Registry',
+            active: true,
+          },
+        ],
+      },
+    },
+    {
+      path: '/:chain/revocationRegistry/:Vc',
+      name: 'verifiable-cred',
+      component: () => import('@/views/VerifiableCred.vue'),
+      meta: {
+        pageTitle: 'Credential Status',
+        breadcrumb: [
+          {
+            text: 'Revocation Registry',
+            active: true,
+          },
+          {
+            text: 'Credential Status',
             active: true,
           },
         ],

@@ -15,11 +15,12 @@
         <b-tab
           title="DID's"
           active
-          @click="hideSchemas()"
+          @click="ShowOnlyDIDTable()"
         >
       <hid-table
       :items="identities"
       :fields="fields"
+      sortBy='createdAt'
       ></hid-table>
         </b-tab>
       <b-tab
@@ -31,8 +32,11 @@
       </b-tab>
       <b-tab
       title="Revocation Registry"
-      disabled
+      @click="showVcTable()"
       >
+      <revocation-registry
+      v-if="showVc"
+      ></revocation-registry>
       </b-tab>
       </b-tabs>
     </b-card>
@@ -48,6 +52,7 @@ import {
 } from '@/libs/utils'
 import HidTable from './components/HidComponents/HidTable.vue'
 import Schemas from './Schemas.vue'
+import RevocationRegistry from './RevocationRegistry.vue'
 
 export default {
   components: {
@@ -58,6 +63,7 @@ export default {
     BCardTitle,
     HidTable,
     Schemas,
+    RevocationRegistry,
   },
   directives: {
     'b-tooltip': VBTooltip,
@@ -70,6 +76,7 @@ export default {
   data() {
     return {
       toSchemas: false,
+      showVc: false,
       islive: true,
       txs: [],
       fields: [
@@ -77,7 +84,7 @@ export default {
           key: 'did_id',
           label: 'DID ID',
           type: 'text',
-          isCopy: true,
+          isTruncate: true,
           isClickable: true,
           to: './identity/',
         },
@@ -85,7 +92,7 @@ export default {
           key: 'versionId',
           label: 'Transaction Id',
           type: 'text',
-          isCopy: true,
+          isTruncate: true,
           isClickable: true,
           to: './tx/',
         },
@@ -110,20 +117,26 @@ export default {
     }
   },
   created() {
-    this.$store.commit('resetAllSchemas')
-    this.fetchDIDs()
+    this.ShowOnlyDIDTable()
   },
   methods: {
+    showVcTable() {
+      this.showVc = true
+      this.$store.commit('resetAllVerifiableCred')
+      this.$http.getLatestVerifiableCred()
+    },
     showSchemas() {
       this.toSchemas = true
-    },
-    hideSchemas() {
-      this.toSchemas = false
       this.$store.commit('resetAllSchemas')
+      this.$http.getLatestSchema()
+    },
+    ShowOnlyDIDTable() {
+      this.showVc = false
+      this.toSchemas = false
+      this.$store.commit('resetAllIdentities')
       this.fetchDIDs()
     },
     fetchDIDs() {
-      this.$store.commit('resetAllIdentities')
       this.$http.getLatestId()
     },
     formatTime: v => toDay(v, 'from'),
