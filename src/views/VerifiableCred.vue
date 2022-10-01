@@ -14,7 +14,6 @@
       <json-viewer v-if="skin !=='dark'" :value="singleVerifiableCred.vcDocument.proof" :expanded="true" :depth="10" :copyable="true"></json-viewer>
       <json-viewer v-else :theme ="theme" :value="singleVerifiableCred.vcDocument.proof" :expanded="true" :depth="10" :copyable="true"></json-viewer>
     </b-card>
-    <p>{{ JSON.stringify(singleVerifiableCred, undefined, 4) }}</p>
   </div>
 </template>
 
