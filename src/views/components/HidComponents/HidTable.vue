@@ -1,8 +1,9 @@
 <template>
-  <b-table thead-class="thead-light tableCard" :items="items" :fields="fields" responsive>
+  <b-table thead-class="thead-light tableCard" :items="items" :fields="fields" :sort-by="sortBy" :sort-desc="true" responsive>
     <template v-for="(field, index) in fields" #[`cell(${field.key})`]="data">
-      <span :key="index" v-if="field.isCopy!=true">{{ data.value }}</span>
-      <router-link v-if="field.isClickable == true" :key="index"  :to="`${field.to}`+`${data.value}`">
+      <span :title="data.value" :key="index" v-if="field.isTruncate!=true">{{ data.value }}</span>
+      <span :title="data.value" :key="index" v-if="field.isTruncate === true && field.isClickable != true">{{ truncate1(data.value,44) }}</span>
+      <router-link v-if="field.isClickable === true" :key="index"  :title="data.value" :to="`${field.to}`+`${data.value}`">
                 {{ truncate1(data.value,44) }}
               </router-link>
     </template>
@@ -16,6 +17,7 @@ export default {
   props: {
     items: Array,
     fields: Array,
+    sortBy: String,
   },
   data() {
     return {}

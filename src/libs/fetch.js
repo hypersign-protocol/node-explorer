@@ -10,6 +10,7 @@ import {
 } from './utils'
 import Identity from './data/identity'
 import Schema from './data/schema'
+import VerifiableCred from './data/verifiable-cred'
 import OsmosAPI from './osmos'
 
 function commonProcess(res) {
@@ -70,7 +71,7 @@ export default class ChainFetch {
   }
 
   async getLatestSchema(config = null) {
-    return this.get('/hypersign-protocol/hidnode/ssi/schema?count=false&pagination.limit=100&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
+    return this.get('/hypersign-protocol/hidnode/ssi/schema?count=false&pagination.limit=50&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
       // eslint-disable-next-line
      const fetchedSchemas = data.schemaList.map(x => {
         const schemaData = Schema.create(x)
@@ -85,7 +86,7 @@ export default class ChainFetch {
   }
 
   async getLatestId(config = null) {
-    return this.get('/hypersign-protocol/hidnode/ssi/did?count=false&pagination.limit=100&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
+    return this.get('/hypersign-protocol/hidnode/ssi/did?count=false&pagination.limit=50&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
       // eslint-disable-next-line
      const createdData = data.didDocList.map(x => {
         const id = Identity.create(x)
@@ -97,6 +98,21 @@ export default class ChainFetch {
 
   async fetchOneDid(DiD, config = null) {
     return this.get(`/hypersign-protocol/hidnode/ssi/did/${DiD}:`, config).then(data => Identity.create(data))
+  }
+
+  async getLatestVerifiableCred(config = null) {
+    return this.get('/hypersign-protocol/hidnode/ssi/credential?count=false&pagination.limit=50&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
+      // eslint-disable-next-line
+     const fetchedVc = data.credentials.map(x => {
+        const Vc = VerifiableCred.create(x)
+        store.commit('addVerifiableCredToStore', Vc)
+      })
+      return fetchedVc
+    })
+  }
+
+  async fetchOneVerifiableCred(Vc, config = null) {
+    return this.get(`/hypersign-protocol/hidnode/ssi/credential/${Vc}:`, config).then(data => VerifiableCred.create(data.credStatus))
   }
 
   async getBlockByHeight(height, config = null) {

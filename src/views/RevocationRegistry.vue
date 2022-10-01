@@ -1,8 +1,9 @@
 <template>
   <div>
       <hid-table
-      :items="getAllSchemas"
+      :items="getAllVerifiableCred"
       :fields="fields"
+      sortBy='issuanceDate'
       ></hid-table>
   </div>
 </template>
@@ -19,8 +20,8 @@ export default {
     HidTable,
   },
   computed: {
-    getAllSchemas() {
-      return store.getters.getAllSchemas
+    getAllVerifiableCred() {
+      return store.getters.getAllVerifiableCred
     },
   },
   data() {
@@ -28,32 +29,27 @@ export default {
       fields: [
         {
           key: 'id',
-          label: 'Schema ID',
+          label: 'Credential ID',
           type: 'text',
           isTruncate: true,
           isClickable: true,
-          to: './schemas/',
+          to: './revocationRegistry/',
         },
         {
-          key: 'name',
-          label: 'Name',
-          type: 'text',
-        },
-        {
-          key: 'modelVersion',
-          label: 'Model Version',
-          type: 'text',
-        },
-        {
-          key: 'description',
-          label: 'Description',
-          type: 'text',
-        },
-        {
-          key: 'author',
-          label: 'Author',
+          key: 'issuer',
+          label: 'Issuer',
           type: 'text',
           isTruncate: true,
+        },
+        {
+          key: 'issuanceDate',
+          label: 'Issued At',
+          type: 'date',
+        },
+        {
+          key: 'currentStatus',
+          label: 'Status',
+          type: 'text',
         },
       ],
     }
