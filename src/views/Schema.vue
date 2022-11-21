@@ -32,7 +32,7 @@ export default {
         author: this.singleSchema.author,
         modelVersion: this.singleSchema.modelVersion,
         properties: JSON.parse(this.singleSchema.schema.properties),
-        additionalProperties: this.singleSchema.schema.description,
+        additionalProperties: this.singleSchema.schema.additionalProperties,
         required: this.singleSchema.schema.required,
       }
     },
