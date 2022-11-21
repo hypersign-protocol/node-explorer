@@ -4,8 +4,8 @@
       <b-card-title>
         Schema Document ({{singleSchema.id}})
       </b-card-title>
-      <json-viewer v-if="skin !== 'dark'" :value="singleSchema.schema" :expanded="true" :depth="10" :copyable="true"></json-viewer>
-      <json-viewer v-else :theme ="theme" :value="singleSchema.schema" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+      <json-viewer v-if="skin !== 'dark'" :value="schemaDocument" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+      <json-viewer v-else :theme ="theme" :value="schemaDocument" :expanded="true" :depth="10" :copyable="true"></json-viewer>
     </b-card>
     <b-card>
       <b-card-title>
@@ -23,6 +23,19 @@ import useAppConfig from '@core/app-config/useAppConfig'
 export default {
   components: {},
   computed: {
+    schemaDocument() {
+      return {
+        name: this.singleSchema.name,
+        description: this.singleSchema.schema.description,
+        type: this.singleSchema.type,
+        authoredAt: this.singleSchema.authored,
+        author: this.singleSchema.author,
+        modelVersion: this.singleSchema.modelVersion,
+        properties: JSON.parse(this.singleSchema.schema.properties),
+        additionalProperties: this.singleSchema.schema.description,
+        required: this.singleSchema.schema.required,
+      }
+    },
     getAllSchemas() {
       return this.$store.getters.getAllSchemas
     },
