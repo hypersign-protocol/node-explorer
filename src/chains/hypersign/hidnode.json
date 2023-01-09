@@ -5,14 +5,14 @@
     "rpc": ["https://rpc.jagrat.hypersign.id/"],
     "snapshot_provider": "",
     "sdk_version": "0.45.9",
-    "coin_type": "118",
+    "coin_type": 118,
     "min_tx_fee": "4000",
     "addr_prefix": "hid",
     "logo": "/logos/HS_Yellow.png",
     "assets": [{
         "base": "uhid",
         "symbol": "HID",
-        "exponent": "6",
+        "exponent": 6,
         "coingecko_id": "hypersign-identity-token",
         "logo": "/logos/HS_Yellow.png"
     }]
