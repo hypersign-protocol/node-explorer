@@ -3,21 +3,24 @@
     <full-header />
     <b-link>
       <div class="d-flex justify-content-center align-items-center">
-        <vuexy-logo />
+        <!-- <vuexy-logo /> -->
+        <img src="/logos/HS_Yellow.png" alt="" width="10%" height="10%" />
         <h1
           class="text-primary display-4 font-weight-bolder d-none d-md-block"
         >
-          Ping Dashboard<small class="flow-left">Beta</small>
+          Hypersign Identity Network
+          <!-- <small class="flow-left">Beta</small> -->
         </h1>
       </div>
+      <br>
     </b-link>
 
-    <p class="mb-1">
+    <!-- <p class="mb-1">
       Ping Dashboard is not just an explorer but also a wallet and more ... 🛠
-    </p>
-    <h2 class="mb-3">
+    </p> -->
+    <!-- <h2 class="mb-3">
       Cosmos Ecosystem Blockchains 🚀
-    </h2>
+    </h2> -->
 
     <div>
       <b-row class="match-height">
