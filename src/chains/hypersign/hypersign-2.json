@@ -1,0 +1,19 @@
+{
+    "chain_name": "Hypersign-Prajna-TestNet",
+    "coingecko": "hypersign-identity-token",
+    "api": ["https://api.prajna.hypersign.id/"],
+    "rpc": ["https://rpc.prajna.hypersign.id/"],
+    "snapshot_provider": "",
+    "sdk_version": "0.47.6",
+    "coin_type": 118,
+    "min_tx_fee": "4000",
+    "addr_prefix": "hid",
+    "logo": "/logos/HS_Yellow.png",
+    "assets": [{
+        "base": "uhid",
+        "symbol": "HID",
+        "exponent": 6,
+        "coingecko_id": "hypersign-identity-token",
+        "logo": "/logos/HS_Yellow.png"
+    }]
+}
