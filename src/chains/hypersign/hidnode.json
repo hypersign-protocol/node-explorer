@@ -1,5 +1,5 @@
 {
-    "chain_name": "Hypersign-TestNet",
+    "chain_name": "Hypersign-Jagrat-TestNet",
     "coingecko": "hypersign-identity-token",
     "api": ["https://api.jagrat.hypersign.id/"],
     "rpc": ["https://rpc.jagrat.hypersign.id/"],
