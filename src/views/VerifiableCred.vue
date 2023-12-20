@@ -11,8 +11,8 @@
       <b-card-title>
         Credential Status Proof
       </b-card-title>
-      <json-viewer v-if="skin !=='dark'" :value="singleVerifiableCred.vcDocument.proof" :expanded="true" :depth="10" :copyable="true"></json-viewer>
-      <json-viewer v-else :theme ="theme" :value="singleVerifiableCred.vcDocument.proof" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+      <json-viewer v-if="skin !=='dark'" :value="singleVerifiableCred.credStatusProof" :expanded="true" :depth="10" :copyable="true"></json-viewer>
+      <json-viewer v-else :theme ="theme" :value="singleVerifiableCred.credStatusProof" :expanded="true" :depth="10" :copyable="true"></json-viewer>
     </b-card>
   </div>
 </template>

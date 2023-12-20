@@ -4,7 +4,8 @@ export default class VerifiableCred {
     this.currentStatus = ''
     this.issuer = ''
     this.issuanceDate = ''
-    this.vcDocument = null
+    this.originalVc = null
+    this.credStatusProof = null
     this.vcDocToShow = {}
   }
 
@@ -20,7 +21,8 @@ export default class VerifiableCred {
     self.vcDocToShow.expirationDate = element.expirationDate
     self.vcDocToShow.credentialHash = element.credentialHash
     self.vcDocToShow.issuer = element.issuer
-    self.vcDocument = { ...element }
+    self.credStatusProof = element.proof
+    self.originalVc = { ...element }
     return self
   }
 }

@@ -11,6 +11,8 @@ import {
 import Identity from './data/identity'
 import Schema from './data/schema'
 import VerifiableCred from './data/verifiable-cred'
+import PrajnaVcStatusDoc from './data/prajna-vc-status-doc'
+import PrajnaSchema from './data/prajna-schema'
 import OsmosAPI from './osmos'
 
 function commonProcess(res) {
@@ -71,6 +73,16 @@ export default class ChainFetch {
   }
 
   async getLatestSchema(config = null) {
+    if (this.config.chain_name === 'hypersign-prajna-testnet') {
+      return this.get('/hypersign-protocol/hidnode/ssi/schema?count=false&pagination.limit=50&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
+        // eslint-disable-next-line
+       const fetchedSchemas = data.credentialSchemas.map(x => {
+          const schemaData = PrajnaSchema.create(x)
+          store.commit('addSchemaToStore', schemaData)
+        })
+        return fetchedSchemas
+      })
+    }
     return this.get('/hypersign-protocol/hidnode/ssi/schema?count=false&pagination.limit=50&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
       // eslint-disable-next-line
      const fetchedSchemas = data.schemaList.map(x => {
@@ -82,10 +94,23 @@ export default class ChainFetch {
   }
 
   async fetchOneSchema(ScH, config = null) {
+    if (this.config.chain_name === 'hypersign-prajna-testnet') {
+      return this.get(`/hypersign-protocol/hidnode/ssi/schema/${ScH}:`, config).then(data => PrajnaSchema.create(data.credentialSchemas[0]))
+    }
     return this.get(`/hypersign-protocol/hidnode/ssi/schema/${ScH}:`, config).then(data => Schema.create(data.schema[0]))
   }
 
   async getLatestId(config = null) {
+    if (this.config.chain_name === 'hypersign-prajna-testnet') {
+      return this.get('/hypersign-protocol/hidnode/ssi/did?count=false&pagination.limit=50&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
+        // eslint-disable-next-line
+       const createdData = data.didDocuments.map(x => {
+          const id = Identity.create(x)
+          store.commit('addDidToStore', id)
+        })
+        return createdData
+      })
+    }
     return this.get('/hypersign-protocol/hidnode/ssi/did?count=false&pagination.limit=50&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
       // eslint-disable-next-line
      const createdData = data.didDocList.map(x => {
@@ -101,6 +126,16 @@ export default class ChainFetch {
   }
 
   async getLatestVerifiableCred(config = null) {
+    if (this.config.chain_name === 'hypersign-prajna-testnet') {
+      return this.get('/hypersign-protocol/hidnode/ssi/credential?count=false&pagination.limit=50&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
+        // eslint-disable-next-line
+       const fetchedVc = data.credentialStatuses.map(x => {
+          const Vc = PrajnaVcStatusDoc.create(x)
+          store.commit('addVerifiableCredToStore', Vc)
+        })
+        return fetchedVc
+      })
+    }
     return this.get('/hypersign-protocol/hidnode/ssi/credential?count=false&pagination.limit=50&pagination.countTotal=true&pagination.reverse=true', config).then(data => {
       // eslint-disable-next-line
      const fetchedVc = data.credentials.map(x => {
@@ -112,6 +147,9 @@ export default class ChainFetch {
   }
 
   async fetchOneVerifiableCred(Vc, config = null) {
+    if (this.config.chain_name === 'hypersign-prajna-testnet') {
+      return this.get(`/hypersign-protocol/hidnode/ssi/credential/${Vc}:`, config).then(data => PrajnaVcStatusDoc.create(data.credentialStatus))
+    }
     return this.get(`/hypersign-protocol/hidnode/ssi/credential/${Vc}:`, config).then(data => VerifiableCred.create(data.credStatus))
   }
 
